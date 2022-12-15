@@ -1,17 +1,22 @@
-public class cards {
-    private String suit;
-    private String face;
+public class Cards {
 
-    public cards(String suit, String face) {
+    private final String suit;
+    private final String rank;
+
+
+
+    public Cards (String suit, String rank) {
         this.suit = suit;
-        this.face = face;
+        this.rank = rank;
+       
     }
 
-    public String getSuit(String suit) {
-        return this.suit;
+    public String getSuit() {
+        return suit;
     }
 
-    public String getFace(String face) {
-        return this.face;
+    public String getRank() {
+        return rank;
     }
+
 }
