@@ -3,8 +3,6 @@ public class Cards {
     private final String suit;
     private final String rank;
 
-
-
     public Cards (String suit, String rank) {
         this.suit = suit;
         this.rank = rank;
@@ -18,5 +16,5 @@ public class Cards {
     public String getRank() {
         return rank;
     }
-
+    
 }

@@ -2,25 +2,17 @@ import java.util.Random;
 
 public class Deck {
     Cards[] cards = new Cards[52];
-    String[] suits = {"A","2","3","4","5","6","7","8","9","10","Jake","Queen","King"};
-    String[] ranks = {"Clubs", "Spades", "Diamonds", "Hearts"};
-    Cards[] playerHand = new Cards[4];
-    Cards[] computerHand = new Cards[4];
-    Cards[] floor = new Cards[4];
-
+    String[] suits = {"Clubs", "Spades", "Diamonds", "Hearts"};
+    String[] ranks = {"Ace","2","3","4","5","6","7","8","9","10","Jake","Queen","King"};
+    
     public Deck() {
         int index = 0;
         for(int i=0; i<suits.length; i++) {
             for (int j=0; j<ranks.length; j++) {
-                this.cards[index] = new Cards(suits[i], ranks[j]);
+                this.cards[index] = new Cards(ranks[j], suits[i]);
                 index++;
             }
         }
-    }
-
-
-    public Cards[] getDeck() {
-        return cards;
     }
 
     public void Shuffle() {
@@ -48,13 +40,15 @@ public class Deck {
         }
     }
 
-    public void Deal(int numCards) {
+    public void Deal(int numCards, Player user, Player computer) {
         Shuffle();
         Cut();
         for (int i=0; i<numCards; i++) {
-            playerHand[i] = cards[i];
-            computerHand[i] = cards[i+numCards];
-            floor[i] = cards[i+2*numCards];
+            user.addCardtoHand(this.cards[i]);
         }
+    }
+    
+    public Cards[] getDeck() {
+        return cards;
     }
 }
