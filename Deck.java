@@ -4,7 +4,8 @@ public class Deck {
     Cards[] cards = new Cards[52];
     String[] suits = {"Clubs", "Spades", "Diamonds", "Hearts"};
     String[] ranks = {"Ace","2","3","4","5","6","7","8","9","10","Jake","Queen","King"};
-    
+    int gameStart = 0;
+
     public Deck() {
         int index = 0;
         for(int i=0; i<suits.length; i++) {
@@ -40,11 +41,21 @@ public class Deck {
         }
     }
 
-    public void Deal(int numCards, Player user, Player computer) {
-        Shuffle();
-        Cut();
-        for (int i=0; i<numCards; i++) {
-            user.addCardtoHand(this.cards[i]);
+    public void Deal(int numCards, Player user, Player computer, Board board) {
+        if (gameStart==0) {
+            Shuffle();
+            Cut();
+            for (int i=0; i<numCards; i++) {
+                user.addCardtoHand(this.cards[i]);
+                computer.addCardtoHand(this.cards[i+numCards]);
+                board.addCardToBoard(this.cards[i+2*numCards]);
+            }
+            gameStart++;
+        } else {
+            for (int i=0; i<numCards; i++) {
+                user.addCardtoHand(this.cards[i]);
+                computer.addCardtoHand(this.cards[i+numCards]);
+            }
         }
     }
     
