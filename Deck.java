@@ -17,7 +17,7 @@ public class Deck {
     }
 
     public void Shuffle() {
-        Random rand = new Random();
+        Random rand = new Random(System.currentTimeMillis());
         for (int i = 0; i<52; i++) {
             int swapIndex = rand.nextInt(52 - i) + i;
             Cards temp = cards[i];
@@ -27,7 +27,7 @@ public class Deck {
     }
 
     public void Cut() {
-        Random rand = new Random();
+        Random rand = new Random(System.currentTimeMillis());
         int cutIndex = rand.nextInt(51);
         Cards[] cutDeck = new Cards[cutIndex];
         for (int i=0; i<cutIndex; i++) {
