@@ -3,7 +3,7 @@ import java.util.Random;
 public class Deck {
     Cards[] cards = new Cards[52];
     String[] suits = {"Clubs", "Spades", "Diamonds", "Hearts"};
-    String[] ranks = {"Ace","2","3","4","5","6","7","8","9","10","Jake","Queen","King"};
+    String[] ranks = {"Ace","2","3","4","5","6","7","8","9","10","Jack","Queen","King"};
     int gameStart = 0;
 
     public Deck() {
@@ -41,6 +41,13 @@ public class Deck {
         }
     }
 
+    public void removeCardFromDeck(int numOfCards) {
+        Cards[] removeDeck = new Cards[this.cards.length-numOfCards];
+        for(int i=0; i<removeDeck.length; i++) 
+            removeDeck[i] = this.cards[i];
+        this.cards = removeDeck;
+    }
+
     public void Deal(int numCards, Player user, Player computer, Board board) {
         if (gameStart==0) {
             Shuffle();
@@ -48,13 +55,15 @@ public class Deck {
             for (int i=0; i<numCards; i++) {
                 user.addCardtoHand(this.cards[i]);
                 computer.addCardtoHand(this.cards[i+numCards]);
-                board.addCardToBoard(this.cards[i+2*numCards]);
+                board.addCardToBoard(this.cards[i+(2*numCards)]);
+                removeCardFromDeck(3*numCards);
             }
             gameStart++;
         } else {
             for (int i=0; i<numCards; i++) {
                 user.addCardtoHand(this.cards[i]);
                 computer.addCardtoHand(this.cards[i+numCards]);
+                removeCardFromDeck(2*numCards);
             }
         }
     }

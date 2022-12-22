@@ -20,17 +20,6 @@ public class Board {
         this.cards = newCards;
     }
 
-    public boolean canPlayOn(Cards card) {
-        if(this.cards.length ==0) 
-            return true;
-        Cards topCard = this.getTopCard();
-        if(topCard.getRank().equals(card.getRank()))
-            return true;
-        if(card.getRank().equals("Jack"))
-            return true;
-        return false;
-    }
-
     public int getNumOfCards() {
         return this.cards.length;
     }

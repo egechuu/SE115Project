@@ -17,30 +17,29 @@ public class Player {
 
     public void removeCardFromHand(Cards card) {
         int cardIndex = -1;
-    for(int i=0; i<this.hand.length; i++) {
-        if(this.hand[i] == card) {
-            cardIndex = i;
-            break;
+        for(int i=0; i<this.hand.length; i++) {
+            if(this.hand[i] == card) {
+                cardIndex = i;
+                break;
+            }
+        }
+        if(cardIndex == -1) 
+            return;
+        Cards[] newHand = new Cards[this.hand.length-1];
+        int newHandIndex = 0;
+        for(int i=0; i<this.hand.length; i++) {
+            if(i==cardIndex)
+                continue;
+            newHand[newHandIndex] = this.hand[i];
+            newHandIndex++;
+            this.hand = newHand;
         }
     }
-    if(cardIndex == -1) 
-        return;
-    Cards[] newHand = new Cards[this.hand.length-1];
-    int newHandIndex = 0;
-    for(int i=0; i<this.hand.length; i++) {
-        if(i==cardIndex)
-            continue;
-    
-    newHand[newHandIndex] = this.hand[i];
-    newHandIndex++;
-    this.hand = newHand;
-    }
-}
 
     public Cards[] getHand() {
         return hand;
     }
-    
+
     public String getName() {
         Scanner sc = new Scanner(System.in); 
         String userName = sc.nextLine();
