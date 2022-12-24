@@ -18,7 +18,7 @@ public class Player {
     public void removeCardFromHand(Cards card) {
         int cardIndex = -1;
         for(int i=0; i<this.hand.length; i++) {
-            if(this.hand[i] == card) {
+            if(this.hand[i].equals(card)) {
                 cardIndex = i;
                 break;
             }
@@ -31,9 +31,9 @@ public class Player {
             if(i==cardIndex)
                 continue;
             newHand[newHandIndex] = this.hand[i];
-            newHandIndex++;
-            this.hand = newHand;
+            newHandIndex++;  
         }
+        this.hand = newHand;
     }
 
     public Cards[] getHand() {
