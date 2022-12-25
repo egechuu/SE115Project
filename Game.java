@@ -16,8 +16,14 @@ public class Game {
         System.out.println("Your hand: ");
         for(int i=0; i<hand.length; i++) 
             System.out.println(i+1 + ": " + hand[i].toString());
-        System.out.println("Choose a card: ");
-        return hand[sc.nextInt()-1];
+        while (true) {
+            System.out.println("Choose a card: ");
+            int index = sc.nextInt() - 1;
+            if (index >= 0 && index < hand.length && hand[index] != null) {
+                return hand[index];
+            }
+            System.out.println("Please choose a valid card index.");
+        }
     }
 
     public Cards selectComputerCard() {

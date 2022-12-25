@@ -5,6 +5,7 @@ public class Board {
         this.cards = new Cards[0];
     }
 
+
     public void addCardToBoard(Cards card) {
         Cards[] newCards = new Cards[this.cards.length+1];
         for(int i=0;i<this.cards.length;i++)
@@ -13,15 +14,21 @@ public class Board {
         this.cards = newCards;
     }
 
-    public void removeCardFromBoard(int numberOfCards) {
-        Cards[] newCards = new Cards[this.cards.length-numberOfCards];
-        for(int i=0; i<newCards.length; i++)
-            newCards[i] = this.cards[i];
-        this.cards = newCards;
+    public void emptyBoard(int boardSize) {
+        Cards[] newBoard = new Cards[boardSize];
+        for(int i=0; i<boardSize; i++)
+            this.cards[i] = newBoard[i];
+        this.cards = newBoard;
+        boardSize = 0;
     }
 
     public int getNumOfCards() {
+        System.out.println(this.cards.length);
         return this.cards.length;
+    }
+
+    public Cards[] getBoard(){
+        return this.cards;
     }
 
     public Cards getTopCard() {

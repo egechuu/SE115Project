@@ -41,56 +41,45 @@ public class Deck {
         }
     }
 
-    public void removeCardFromDeck(int[] dealtIndices) {
-        Cards[] removeDeck = new Cards[this.cards.length-dealtIndices.length];
-        int index = 0;
-        boolean skipCard = false;
-        for(int i=0; i<this.cards.length; i++) {
-            skipCard = false;
-            for (int j=0; j<dealtIndices.length; j++) {
-                if (i==dealtIndices[j]) {
-                    skipCard = true;
-                    break;
-                }
-            }
-            if(!skipCard) {
-                removeDeck[index] = this.cards[i];
-                index++;
-            }
+    public void removeCardFromDeck(int numCards) {
+        Cards[] removeDeck = new Cards[this.cards.length - numCards];
+        for (int i = 0; i < removeDeck.length; i++) {
+            removeDeck[i] = this.cards[i + numCards];
         }
         this.cards = removeDeck;
     }
+    
 
     public void Deal(int numCards, Player user, Player computer, Board board) {
-        if (gameStart==0) {
+        if (gameStart == 0) {
             Shuffle();
             Cut();
-            int[] dealtIndices = new int[3*numCards];
-            for (int i=0; i<3*numCards; i++) {
-                if(i<numCards)
+            for (int i = 0; i < 3 * numCards; i++) {
+                if (i < numCards) {
                     user.addCardtoHand(this.cards[i]);
-                else if (i<2*numCards)
+                } else if (i < 2 * numCards) {
                     computer.addCardtoHand(this.cards[i]);
-                else 
+                } else {
                     board.addCardToBoard(this.cards[i]);
-                dealtIndices[i] = i;
+                }
             }
-            removeCardFromDeck(dealtIndices);
+            removeCardFromDeck(3 * numCards);
             gameStart++;
         } else {
-            int[] dealtIndices = new int[2*numCards];
-            for (int i=0; i<2*numCards; i++) {
-                if (i<numCards)
+            for (int i = 0; i < 2 * numCards; i++) {
+                if (i < numCards) {
                     user.addCardtoHand(this.cards[i]);
-                else
-                    computer.addCardtoHand(this.cards[i]);  
-                dealtIndices[i] =i;
+                } else {
+                    computer.addCardtoHand(this.cards[i]);
+                }
             }
-            removeCardFromDeck(dealtIndices);
+            removeCardFromDeck(2 * numCards);
         }
     }
     
-    public Cards[] getDeck() {
-        return cards;
+    public boolean isEmpty() {
+        return this.cards.length==0;
     }
+
+    
 }
