@@ -12,8 +12,8 @@ public class Game {
     }
 
     public Cards getPlayerCard() {
-        System.out.println("Your hand: ");
         Cards[] hand = players[0].getHand();
+        System.out.println("Your hand: ");
         for(int i=0; i<hand.length; i++) 
             System.out.println(i+1 + ": " + hand[i].toString());
         System.out.println("Choose a card: ");
@@ -23,7 +23,6 @@ public class Game {
     public Cards selectComputerCard() {
         Cards topCard = board.getTopCard();
         Cards[] hand = players[1].getHand();
-
         for(Cards card : hand) {
             if(card.getRank().equals("Jack")) {
                 System.out.println("The computer played " + card);
