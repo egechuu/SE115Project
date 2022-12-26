@@ -1,6 +1,4 @@
-import java.util.Scanner;
 public class Player {
-    private String name;
     private Cards[] hand;
 
     public Player() {
@@ -38,13 +36,5 @@ public class Player {
 
     public Cards[] getHand() {
         return hand;
-    }
-
-    public String getName() {
-        Scanner sc = new Scanner(System.in); 
-        String userName = sc.nextLine();
-        name = userName;
-        sc.close();
-        return name;
     }
 }

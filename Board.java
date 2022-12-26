@@ -23,7 +23,6 @@ public class Board {
     }
 
     public int getNumOfCards() {
-        System.out.println(this.cards.length);
         return this.cards.length;
     }
 

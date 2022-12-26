@@ -4,23 +4,21 @@ public class GameState {
     private Cards[] computerPocket;
     private int playerScore;
     private int computerScore;
-    private int boardSize;
     
 
-    public GameState(Cards[] playerPocket, Cards[] computerPocket, int playerScore, int computerScore, int boardSize, Board board) {
+    public GameState(Cards[] playerPocket, Cards[] computerPocket, int playerScore, int computerScore, Board board) {
         this.board = board.getBoard();
         this.playerPocket = playerPocket;
         this.computerPocket = computerPocket;
         this.playerScore = playerScore;
         this.computerScore = computerScore;
-        this.boardSize = boardSize;
     }
 
-    public boolean canTakeCards(Cards c, int boardSize) {
-        if (boardSize == 0) {
+    public boolean canTakeCards(Cards c) {
+        if (board.length == 0) {
             return false;
         }
-        Cards topCard = board[boardSize - 1];
+        Cards topCard = board[board.length-1];
         if (c.getRank().equals(topCard.getRank())){
             return true;
         }
@@ -30,28 +28,28 @@ public class GameState {
         return false;
     }
 
-    public void takeCards(Cards[] Userpocket, int boardSize) {
-        Cards[] newDeck = new Cards[boardSize];
-        for (int i=0; i<boardSize; i++) {
+    public Cards[] takeCards(Cards[] pocket, int number) {
+        Cards[] newDeck = new Cards[board.length];
+        for (int i=0; i<board.length; i++) {
             newDeck[i] = this.board[i];
-            boardSize--;
         }
-        Userpocket = newDeck;
+        pocket = newDeck;
         System.out.println("The floor is now empty.");
+        return newDeck;
     }
 
     public void PlayerPişti(Player player, Cards c) {
-        if (boardSize == 1) {
+        if (board.length == 1) {
             Cards topCard = board[0];
             if (c.getRank().equals(topCard.getRank())) {
                 playerScore += 10;
-                System.out.println("Pişti made by: " + player.getName() + "!");
+                System.out.println("You made a Pişti!");
             }
         }
     }
 
     public void ComputerPişti(Cards d) {
-        if (boardSize == 1) {
+        if (board.length == 1) {
             Cards topCard = board[0];
             if (d.getRank().equals(topCard.getRank())) {
                 computerScore += 10;

@@ -9,8 +9,8 @@ public class Pisti {
         Deck deck =  new Deck();
         Cards[] playerCards = new Cards[0];
         Cards[] computerCards = new Cards[0];
-        Cards[] playerPocket = new Cards[1];
-        Cards[] computerPocket = new Cards[1];
+        Cards[] playerPocket = new Cards[0];
+        Cards[] computerPocket = new Cards[0];
         int playerScore = 0;
         int computerScore = 0;
         int playerPocketSize = 0;
@@ -18,7 +18,7 @@ public class Pisti {
         String lastTrickWinner = "";
         deck.Deal(4, player, computer, board);
         int boardSize = board.getNumOfCards();
-        GameState gameState = new GameState(playerPocket, computerPocket, playerScore, computerScore, boardSize, board);
+        GameState gameState = new GameState(playerPocket, computerPocket, playerScore, computerScore, board);
 
         while(!gameState.isGameOver(deck, playerCards.length, computerCards.length)) {
             playerCards = player.getHand();
@@ -31,7 +31,7 @@ public class Pisti {
             if(gameState.isGameOver(deck, playerCards.length, computerCards.length))
                 break;
 
-            if(playerCards.length==0 && computerCards.length==0) {
+            if(playerCards.length==0 && computerCards.length==0 && !deck.isEmpty()) {
                 deck.Deal(4, player, computer, board);
                 playerCards = player.getHand();
                 computerCards = computer.getHand();
@@ -39,13 +39,12 @@ public class Pisti {
 
             if(playerCards.length>0) {
                 Cards c = newGame.getPlayerCard();
-                if(gameState.canTakeCards(c, boardSize)){
+                if(gameState.canTakeCards(c)){
                     gameState.PlayerPişti(player, c);
                     player.removeCardFromHand(c);
                     board.addCardToBoard(c);
-                    boardSize++;
-                    gameState.takeCards(playerPocket, boardSize); 
-                    playerPocket = gameState.getPlayerPocket();
+                    boardSize = board.getNumOfCards();
+                    playerPocket = gameState.takeCards(playerPocket, boardSize); 
                     playerPocketSize = playerPocket.length;
                     board.emptyBoard(boardSize);
                     boardSize = board.getNumOfCards();
@@ -56,19 +55,18 @@ public class Pisti {
                 } else {
                     player.removeCardFromHand(c);
                     board.addCardToBoard(c);
-                    boardSize++;
+                    boardSize = board.getNumOfCards();
                 }
             }
 
             if(computerCards.length>0) {
                 Cards d = newGame.selectComputerCard();
-                if(gameState.canTakeCards(d, boardSize)) {
+                if(gameState.canTakeCards(d)) {
                     gameState.ComputerPişti(d);
                     computer.removeCardFromHand(d);
                     board.addCardToBoard(d);
-                    boardSize++;
-                    gameState.takeCards(computerPocket, boardSize);
-                    computerPocket = gameState.getComputerPocket();
+                    boardSize = board.getNumOfCards();
+                    computerPocket = gameState.takeCards(computerPocket, boardSize);
                     computerPocketSize = computerPocket.length;
                     board.emptyBoard(boardSize);
                     boardSize = board.getNumOfCards();
@@ -79,7 +77,7 @@ public class Pisti {
                 } else {
                     computer.removeCardFromHand(d);
                     board.addCardToBoard(d);
-                    boardSize++;
+                    boardSize = board.getNumOfCards();
                 }
                 
             }
@@ -91,19 +89,17 @@ public class Pisti {
                     gameState.takeCards(playerPocket, playerPocketSize);
                     playerPocket = gameState.getPlayerPocket();
                     playerPocketSize = playerPocket.length;
-                    board.emptyBoard(boardSize);
-                    boardSize = board.getNumOfCards();
                     gameState.scoreGame(player, computer, playerPocket, computerPocket);
                     playerScore = gameState.getPlayerScore();
                 } else if (lastTrickWinner.equals("Computer")) {
                     gameState.takeCards(computerPocket, computerPocketSize);
                     computerPocket = gameState.getComputerPocket();
                     computerPocketSize = computerPocket.length;
-                    board.emptyBoard(boardSize);
-                    boardSize = board.getNumOfCards();
                     gameState.scoreGame(player, computer, playerPocket, computerPocket);
                     computerScore = gameState.getComputerScore();
-                }  
+                }
+                board.emptyBoard(boardSize);
+                boardSize = board.getNumOfCards(); 
             }
             newGame.closeScanner();
             System.out.println("The game is over!");

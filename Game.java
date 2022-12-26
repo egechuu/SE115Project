@@ -27,22 +27,25 @@ public class Game {
     }
 
     public Cards selectComputerCard() {
-        Cards topCard = board.getTopCard();
         Cards[] hand = players[1].getHand();
-        for(Cards card : hand) {
-            if(card.getRank().equals("Jack")) {
-                System.out.println("The computer played " + card);
-                return card;
+        if(board.getTopCard()==null) { 
+            System.out.println("The computer played " + hand[0]);
+            return hand[0];
+        } else {
+            Cards topCard = board.getTopCard();
+            for(Cards card : hand) {
+                if(card.getRank().equals("Jack")) {
+                    System.out.println("The computer played " + card);
+                    return card;
+                }
+                if(card.getSuit().equals(topCard.getSuit()) || card.getRank().equals(topCard.getRank())) {
+                    System.out.println("The computer played " + card);
+                    return card;
+                } 
             }
-            if(card.getSuit().equals(topCard.getSuit()) || card.getRank().equals(topCard.getRank())) {
-                System.out.println("The computer played " + card);
-                return card;
-            } 
         }
-
         System.out.println("The computer played " + hand[0]);
         return hand[0];
-            
     }
 
     public void closeScanner() {
