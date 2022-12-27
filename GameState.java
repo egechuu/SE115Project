@@ -5,7 +5,6 @@ public class GameState {
     private int playerScore;
     private int computerScore;
     
-
     public GameState(Cards[] playerPocket, Cards[] computerPocket, int playerScore, int computerScore, Board board) {
         this.board = board.getBoard();
         this.playerPocket = playerPocket;
@@ -14,17 +13,25 @@ public class GameState {
         this.computerScore = computerScore;
     }
 
-    public boolean canTakeCards(Cards c) {
-        if (board.length == 0) {
+    public boolean canTakeCards(Cards c, Board h, Player player, int piştiCounter) {
+        Cards topCard = h.getTopCard(); 
+        if (topCard==null) {
             return false;
         }
-        Cards topCard = board[board.length-1];
-        if (c.getRank().equals(topCard.getRank())){
+        if (h.getNumOfCards()==1 && c.getRank().equals(topCard.getRank())) {
+            piştiCounter++;
+            System.out.println("Pişti made by: " + player);
             return true;
         }
-        if (c.getRank().equals("Jack")) {
+        if (topCard!=null && h.getNumOfCards()!=1 && c.getRank().equals(topCard.getRank())){
+            System.out.println("The same rank played.");
             return true;
         }
+        if (topCard!=null && c.getRank().equals("Jack")) {
+            System.out.println("Jack played.");
+            return true;
+        }
+        
         return false;
     }
 
@@ -34,31 +41,17 @@ public class GameState {
             newDeck[i] = this.board[i];
         }
         pocket = newDeck;
-        System.out.println("The floor is now empty.");
-        return newDeck;
+        System.out.println("Taking all cards.");
+        return pocket;
     }
 
-    public void PlayerPişti(Player player, Cards c) {
-        if (board.length == 1) {
-            Cards topCard = board[0];
-            if (c.getRank().equals(topCard.getRank())) {
-                playerScore += 10;
-                System.out.println("You made a Pişti!");
-            }
+    public void scoreGame(Player player, Player computer, Cards[] playerPocket, Cards[] computerPocket, int playerPişti, int computerPişti) {
+        for(int i=0; i<playerPişti; i++) {
+            playerScore += 10;
         }
-    }
-
-    public void ComputerPişti(Cards d) {
-        if (board.length == 1) {
-            Cards topCard = board[0];
-            if (d.getRank().equals(topCard.getRank())) {
-                computerScore += 10;
-                System.out.println("Pişti made by: computer!");
-            }
+        for(int i=0; i<computerPişti; i++) {
+            computerScore += 10;
         }
-    }
-
-    public void scoreGame(Player player, Player computer, Cards[] playerPocket, Cards[] computerPocket) {
         if (playerPocket.length > computerPocket.length) 
             playerScore += 3;
         else if (computerPocket.length > playerPocket.length) 

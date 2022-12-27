@@ -37,4 +37,5 @@ public class Player {
     public Cards[] getHand() {
         return hand;
     }
+    
 }

@@ -38,7 +38,11 @@ public class Game {
                     System.out.println("The computer played " + card);
                     return card;
                 }
-                if(card.getSuit().equals(topCard.getSuit()) || card.getRank().equals(topCard.getRank())) {
+                if(card.getRank().equals(topCard.getRank())) {
+                    System.out.println("The computer played " + card);
+                    return card;
+                }
+                if(board.getNumOfCards()==1 && card.getRank().equals(topCard.getRank())) {
                     System.out.println("The computer played " + card);
                     return card;
                 } 

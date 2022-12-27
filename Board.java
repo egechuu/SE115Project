@@ -5,7 +5,6 @@ public class Board {
         this.cards = new Cards[0];
     }
 
-
     public void addCardToBoard(Cards card) {
         Cards[] newCards = new Cards[this.cards.length+1];
         for(int i=0;i<this.cards.length;i++)
@@ -20,6 +19,7 @@ public class Board {
             this.cards[i] = newBoard[i];
         this.cards = newBoard;
         boardSize = 0;
+        System.out.println("The board is now empty.");
     }
 
     public int getNumOfCards() {

@@ -18,6 +18,6 @@ public class Cards {
     }
     
     public String toString() {
-        return suit + " of " + rank;
+        return rank + " of " + suit;
     }
 }
