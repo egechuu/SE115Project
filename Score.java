@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
+import java.io.BufferedReader;
 import java.io.File;
 
 public class Score {
@@ -16,9 +17,6 @@ public class Score {
     }
 
     public String getPlayerName() {
-        Scanner sc = new Scanner(System.in);
-        this.playerName = sc.nextLine();
-        sc.close();
         return playerName;
     }
 
@@ -39,11 +37,13 @@ public class Score {
         }
         try {
             PrintWriter writer = new PrintWriter("Scores.txt");
+            writer.println("-----TOP SCORES LIST-----");
             for (int i = 0; i < topScores.length; i++) {
                 if (topScores[i] != null) 
-                    writer.println(topScores[i].getPlayerName() + " : " + topScores[i].getScore());
+                    writer.println(i+1 + ") " + topScores[i].getPlayerName() + " : " + topScores[i].getScore());
             }
-        }catch(IOException e){
+            writer.close();
+        } catch(IOException e) {
             System.out.println("Cannot write to the file.");
         }
     }
@@ -51,16 +51,36 @@ public class Score {
     public void readScore() {
         try {
             Scanner fileReader = new Scanner(new File("Scores.txt"));
+            int i = 0;
+            fileReader.nextLine();
             while (fileReader.hasNextLine()) {
                 String line = fileReader.nextLine();
-                String[] parts = line.split(",");
-                String name = parts[0];
-                int score = Integer.parseInt(parts[1]);
+                String[] parts = line.split(" ");
+                String name = parts[1];
+                int score = Integer.parseInt(parts[parts.length-1]);
+                topScores[i] = new Score(name, score);
+                i++;
             }
             fileReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("File cannot be found.");
         }
+    }
+
+    public void PrintTopScoreList() {
+        try {
+            FileReader list = new FileReader("Scores.txt");
+            BufferedReader br = new BufferedReader(list);
+            String line;
+            while((line = br.readLine()) != null) {
+                System.out.println(line);
+            }   
+        br.close();
+        list.close();
+        } catch(IOException e) {
+            System.out.println("Cannot print Top Score List.");
+        }
+
     }
 }
 

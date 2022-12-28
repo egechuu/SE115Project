@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Pisti {
     public static void main(String[] args) {
         //bismillahirahmanirrahim
@@ -101,13 +102,36 @@ public class Pisti {
                 board.emptyBoard(boardSize);
                 boardSize = board.getNumOfCards(); 
             }
-            newGame.closeScanner();
             System.out.println("The game is over!");
             playerScore = gameState.getPlayerScore();
             computerScore = gameState.getComputerScore();
             System.out.println("Player Score: " + playerScore);
             System.out.println("Computer Score: " + computerScore);
             System.out.println(gameState.getWinner());
+            Scanner nm = new Scanner(System.in);
+            System.out.println("Please enter your username.\nRemember: your username should not include any space characters.");
+            String playerName = "";
+            try {
+                playerName = nm.nextLine();
+                while(true) {
+                    String[] check = playerName.split(" ");
+                    if(playerName!=null && check.length==1) {
+                        break;
+                    } else {
+                        System.out.println("Please enter a valid username.");
+                    }
+                }
+            } catch (java.util.NoSuchElementException e) {
+                System.out.println("No input provided. Using default name 'Player'");
+                playerName = "Player";
+            }
+            Score score = new Score(playerName, playerScore);
+            score.addScore(playerName, playerScore);
+            System.out.println("Enter 1 to view Top Scores.");
+            int choice = nm.nextInt();
+            if (choice == 1)
+                score.PrintTopScoreList();
+            nm.close();
         }
     }
 }
