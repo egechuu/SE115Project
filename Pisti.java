@@ -85,7 +85,7 @@ public class Pisti {
         }
 
         if(gameState.isGameOver(deck, playerCards.length, computerCards.length)) {
-            if(boardSize>0) {
+            if(board.getNumOfCards()>0) {
                 if(lastTrickWinner.equals("Player")) {
                     gameState.takeCards(playerPocket, playerPocketSize);
                     playerPocket = gameState.getPlayerPocket();

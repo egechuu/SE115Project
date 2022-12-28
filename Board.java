@@ -14,11 +14,15 @@ public class Board {
     }
 
     public void emptyBoard(int boardSize) {
+        /* 
+        this.cards = new Cards[0];
         Cards[] newBoard = new Cards[boardSize];
         for(int i=0; i<boardSize; i++)
             this.cards[i] = newBoard[i];
         this.cards = newBoard;
         boardSize = 0;
+        */
+        this.cards = new Cards[0];
         System.out.println("The board is now empty.");
     }
 
@@ -31,6 +35,8 @@ public class Board {
     }
 
     public Cards getTopCard() {
+        if(this.cards.length==0)
+            return null;
         return this.cards[this.cards.length-1];
     }
 }
