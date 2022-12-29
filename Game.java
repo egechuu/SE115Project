@@ -18,11 +18,22 @@ public class Game {
             System.out.println(i+1 + ": " + hand[i].toString());
         while (true) {
             System.out.println("Choose a card: ");
-            int index = sc.nextInt() - 1;
-            if (index >= 0 && index < hand.length && hand[index] != null) {
+            String s = sc.nextLine();
+            try{
+                int index = Integer.parseInt(s)-1;
+                if (index >= 0 && index < hand.length && hand[index] != null) {
                 return hand[index];
+                }else{
+                    System.out.println("Please choose a valid card index.");
+                }
+            }catch(Exception e){
+            
+                System.out.println("Please enter an index in numbers.");
+                continue;
             }
-            System.out.println("Please choose a valid card index.");
+           
+            
+            
         }
     }
 
